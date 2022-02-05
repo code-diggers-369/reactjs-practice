@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-function App() {
+// import component
+import CounterApp from "./components/CounterApp";
+
+export default function App() {
+  const [counterText, setCounterText] = useState(0);
+
+  // increment
+  const incrementCounter = (tempChildFunction) => {
+    tempChildFunction();
+
+    setCounterText(counterText + 1);
+  };
+  // decrement
+  const decrementCounter = () => {
+    if (counterText > 0) {
+      setCounterText(counterText - 1);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="cotainer vh-100 vw-100 d-flex justify-content-center align-items-center">
+      <CounterApp
+        counterText={counterText}
+        incrementCounter={incrementCounter}
+        decrementCounter={decrementCounter}
+      />
     </div>
   );
 }
-
-export default App;
