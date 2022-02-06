@@ -1,31 +1,44 @@
-import React, { useState } from "react";
-
-// import component
-import CounterApp from "./components/CounterApp";
+import React, { useRef } from "react";
 
 export default function App() {
-  const [counterText, setCounterText] = useState(0);
-
-  // increment
-  const incrementCounter = (tempChildFunction) => {
-    tempChildFunction();
-
-    setCounterText(counterText + 1);
-  };
-  // decrement
-  const decrementCounter = () => {
-    if (counterText > 0) {
-      setCounterText(counterText - 1);
-    }
-  };
+  const childRef = useRef(null);
 
   return (
-    <div className="cotainer vh-100 vw-100 d-flex justify-content-center align-items-center">
-      <CounterApp
-        counterText={counterText}
-        incrementCounter={incrementCounter}
-        decrementCounter={decrementCounter}
+    <div className="m-5">
+      <input
+        id="inputBox"
+        className="form-control"
+        placeholder="Please Enter Value"
       />
+
+      <br />
+      <br />
+      <button
+        className="btn btn-primary"
+        onClick={() => {
+          childRef.current.value = 100;
+        }}
+      >
+        Change The Value
+      </button>
+
+      <Hello myRef={childRef} />
     </div>
   );
 }
+
+const Hello = ({ myRef }) => {
+  const name = "haresh";
+  const age = 20;
+
+  const getMyName = () => {
+    alert(name);
+  };
+
+  return (
+    <div className="mt-5">
+      <input placeholder="Hello" disabled ref={myRef} />
+      <h1>Hello World</h1>
+    </div>
+  );
+};
